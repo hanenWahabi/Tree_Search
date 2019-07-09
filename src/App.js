@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { RadioGroup, Button } from "@material-ui/core";
 import Subsection from "./components/subsection";
+import SearchTable from "./components/SearchTable";
 import DropDownItem from "./components/DropDownItem";
 const PARAMS = [
   { id: 0, group: "Option 1", type: ["Type A", "Type B", "Type C"] },
@@ -83,6 +84,9 @@ class App extends React.Component {
   handleClose() {
     this.setState({ anchorEl: null });
   }
+  removeFilters() {
+    this.setState({ openSectionIndex: -1, checked: "", group: null });
+  }
   render() {
     const { openSectionIndex, checked, group } = this.state;
     return (
@@ -117,6 +121,13 @@ class App extends React.Component {
                 </DropDownItem>
               ))
             : null}
+        </div>
+        <div className="search">
+          <SearchTable
+            data={DATA}
+            filter={[checked, group]}
+            removeFilters={this.removeFilters.bind(this)}
+          />
         </div>
       </div>
     );
